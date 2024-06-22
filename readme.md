@@ -20,17 +20,17 @@ generate random usernames for players (?)
 - be: setup be stuff [don't forget tests!]
  
 #### Requirements
-[ ] multiplayer
-[ ] light-dark mode
-[ ] mobile first
-[ ] use semantic html
-[ ] add accessibility
-[ ] modes: vs computer, vs friend (share a link)
-[ ] add score and history
-[ ] performance
-[ ] security
-[ ] usability
+- [ ] multiplayer
+- [ ] light-dark mode
+- [ ] mobile first
+- [ ] use semantic html
+- [ ] add accessibility
+- [ ] modes: vs computer, vs friend (share a link)
+- [ ] add score and history
+- [ ] performance
+- [ ] security
+- [ ] usability
 
 ##### Optional/advanced
-[ ] add leaderboard
-[ ] add optional login to save progress
+- [ ] add leaderboard
+- [ ] add optional login to save progress
