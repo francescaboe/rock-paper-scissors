@@ -22,7 +22,7 @@ generate random usernames for players (?)
 #### Requirements
 - [ ] multiplayer
 - [ ] light-dark mode
-- [ ] mobile first
+- [ ] mobile first & responsiveness
 - [ ] use semantic html
 - [ ] add accessibility
 - [ ] modes: vs computer, vs friend (share a link)
@@ -34,3 +34,4 @@ generate random usernames for players (?)
 ##### Optional/advanced
 - [ ] add leaderboard
 - [ ] add optional login to save progress
+- [ ] improve ui > create 3D graphics?
