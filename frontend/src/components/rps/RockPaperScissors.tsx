@@ -31,19 +31,24 @@ function reducer(state: RoPaScState, action: RoPaScAction) {
         playerServer: IDLE_PLAYERS.playerServer,
         isPlaying: false,
       };
-    case RoPaScActionTypes.UPDATE_PLAYER_USER:
-      return { ...state, playerUser: action.payload };
-    case RoPaScActionTypes.UPDATE_PLAYER_SERVER:
-      return { ...state, playerServer: action.payload };
-    case RoPaScActionTypes.UPDATE_SCORE:
+    case RoPaScActionTypes.UPDATE_GAME: {
+      const { playerUser, playerServer } = action.payload;
+      const updatedScore = { ...state.score };
+
+      if (playerServer !== playerUser) {
+        if (playerServer === outcomes[playerUser]) {
+          updatedScore.user += 1;
+        } else {
+          updatedScore.server += 1;
+        }
+      }
       return {
         ...state,
-        score: {
-          ...state.score,
-          server: state.score.server + action.payload.server,
-          user: state.score.user + action.payload.user,
-        },
+        playerServer,
+        playerUser,
+        score: updatedScore,
       };
+    }
     case RoPaScActionTypes.RESET_GAME:
       return initialState;
     default:
@@ -56,8 +61,7 @@ function RockPaperScissors() {
   const { playerUser, playerServer, isPlaying, score } = state;
 
   const isIdleEmoji = (player) => player === '🤜' || player === '🤛';
-  const isIdle =
-    playerServer === initialState.playerServer && playerUser === initialState.playerUser;
+
   const handleOnOptionClick = (e) => {
     // persist result
     const pl = e.currentTarget.name;
@@ -65,12 +69,14 @@ function RockPaperScissors() {
     dispatch({ type: RoPaScActionTypes.START_GAME });
 
     setTimeout(() => {
-      dispatch({ type: RoPaScActionTypes.UPDATE_PLAYER_USER, payload: pl });
       // VS COMPUTER
       // Get the random option using the random index
       const randomIndex = Math.floor(Math.random() * options.length);
       const randomOption = options[randomIndex];
-      dispatch({ type: RoPaScActionTypes.UPDATE_PLAYER_SERVER, payload: randomOption });
+      dispatch({
+        type: RoPaScActionTypes.UPDATE_GAME,
+        payload: { playerServer: randomOption, playerUser: pl },
+      });
       // VS SERVER PLAYER
       // TODO
     }, 1800);
@@ -81,20 +87,15 @@ function RockPaperScissors() {
   };
 
   React.useEffect(() => {
-    if (isIdle) {
-      // update score
-      return;
-    }
-    if (playerServer === playerUser) {
-      //setWinner(TEXT.draw);
-      return;
-    }
-    if (playerServer === outcomes[playerUser]) {
-      dispatch({ type: RoPaScActionTypes.UPDATE_SCORE, payload: { server: 0, user: 1 } });
-    } else {
-      dispatch({ type: RoPaScActionTypes.UPDATE_SCORE, payload: { server: 1, user: 0 } });
-    }
-  }, [playerServer, playerUser, outcomes]);
+    if (score.server === 0) return;
+    console.log('server score');
+    // add explosion animation for server
+  }, [score.server]);
+  React.useEffect(() => {
+    if (score.user === 0) return;
+    console.log('user score');
+    // add explosion animation for user
+  }, [score.user]);
 
   return (
     <main className="p-2 h-lvh bg-amber-50 flex flex-col">
@@ -118,7 +119,7 @@ function RockPaperScissors() {
           >
             {playerServer}
           </span>
-          <span>{`server: ${score['server']} - ${score['user']} :user`}</span>
+          <span>{` user: ${score.user} - server: ${score.server}`}</span>
           <span
             className={`text-6xl ${isIdleEmoji(playerUser) && 'rotate-90'} ${isPlaying && 'animate-throwing'}`}
           >

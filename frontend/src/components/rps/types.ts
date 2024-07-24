@@ -27,24 +27,15 @@ export const outcomes: { [key: string]: string | undefined } = {
 export enum RoPaScActionTypes {
   START_GAME = 'START_GAME',
   END_GAME = 'END_GAME',
-  UPDATE_PLAYER_USER = 'UPDATE_PLAYER_USER',
-  UPDATE_PLAYER_SERVER = 'UPDATE_PLAYER_SERVER',
-  UPDATE_SCORE = 'UPDATE_SCORE',
+  UPDATE_GAME = 'UPDATE_GAME',
   RESET_GAME = 'RESET_GAME',
 }
 
 type NoPayload = { type: 'START_GAME' | 'RESET_GAME' | 'END_GAME' };
-type UpdateUser = {
-  type: 'UPDATE_PLAYER_USER' | 'UPDATE_PLAYER_SERVER';
-  payload: string;
-};
-type UpdateScore = {
-  type: 'UPDATE_SCORE';
-  payload: { server: number; user: number };
-};
+type UpdateGame = { type: 'UPDATE_GAME'; payload: { playerServer: string; playerUser: string } };
 
 // An interface for our actions
-export type RoPaScAction = NoPayload | UpdateUser | UpdateScore;
+export type RoPaScAction = NoPayload | UpdateGame;
 
 // An interface for our state
 export interface RoPaScState {
