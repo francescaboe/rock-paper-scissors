@@ -1,50 +1,27 @@
 import React from 'react';
+import { IDLE_PLAYERS, TEXT, options, RoPaScAction, RoPaScActionTypes, RoPaScState } from './types';
 
-const IDLE_PLAYERS = {
-  playerUser: '🤛',
-  playerServer: '🤜',
-};
-
-const TEXT = {
-  draw: 'Draw',
-  server_win: 'I win!',
-  no_winner: 'No winner yet!',
-  user_win: 'You win!',
-  play: 'Play',
-  reset: 'Reset',
-  result: 'Result',
-  score: 'Score: ',
-  serverPlayer: 'Server player name',
-  userPlayer: 'Your name',
-};
-
-const options: string[] = ['✊', '🖐️', '✌️'];
-
-// winner: looser
-const outcomes: { [key: string]: string | undefined } = {
-  '✊': '✌️',
-  '🖐️': '✊',
-  '✌️': '🖐️',
-};
-
+// Reducer
 const initialState = {
   playerUser: IDLE_PLAYERS.playerUser,
   playerServer: IDLE_PLAYERS.playerServer,
   isPlaying: false,
-  // Add any other relevant state properties
+  score: {
+    user: 0,
+    server: 0,
+  },
 };
 
-function reducer(state, action) {
+function reducer(state: RoPaScState, action: RoPaScAction) {
   switch (action.type) {
-    case 'START_GAME':
+    case RoPaScActionTypes.START_GAME:
       return { ...state, isPlaying: true };
-    case 'UPDATE_PLAYER_USER':
+    case RoPaScActionTypes.UPDATE_PLAYER_USER:
       return { ...state, playerUser: action.payload };
-    case 'UPDATE_PLAYER_SERVER':
+    case RoPaScActionTypes.UPDATE_PLAYER_SERVER:
       return { ...state, playerServer: action.payload };
-    case 'RESET_GAME':
+    case RoPaScActionTypes.RESET_GAME:
       return initialState;
-    // Add more cases for other state transitions
     default:
       return state;
   }
@@ -52,26 +29,27 @@ function reducer(state, action) {
 
 function RockPaperScissors() {
   const [state, dispatch] = React.useReducer(reducer, initialState);
-  const { playerUser, playerServer, isPlaying } = state;
+  const { playerUser, playerServer, isPlaying, score } = state;
+
   const handleOnOptionClick = (e) => {
     // persist result
     const pl = e.currentTarget.name;
-    dispatch({ type: 'RESET_GAME' });
-    dispatch({ type: 'START_GAME' });
+    dispatch({ type: RoPaScActionTypes.RESET_GAME });
+    dispatch({ type: RoPaScActionTypes.START_GAME });
 
     setTimeout(() => {
-      dispatch({ type: 'UPDATE_PLAYER_USER', payload: pl });
+      dispatch({ type: RoPaScActionTypes.UPDATE_PLAYER_USER, payload: pl });
       // VS COMPUTER
       // Get the random option using the random index
       const randomIndex = Math.floor(Math.random() * options.length);
       const randomOption = options[randomIndex];
-      dispatch({ type: 'UPDATE_PLAYER_SERVER', payload: randomOption });
+      dispatch({ type: RoPaScActionTypes.UPDATE_PLAYER_SERVER, payload: randomOption });
       // VS SERVER PLAYER
       // TODO
     }, 1800);
 
     setTimeout(() => {
-      dispatch({ type: 'RESET_GAME' });
+      dispatch({ type: RoPaScActionTypes.RESET_GAME });
     }, 3000);
   };
 
@@ -93,7 +71,7 @@ function RockPaperScissors() {
         {/*PLAYGROUND*/}
         <p className="text-center gap-4 flex flex-col justify-around items-center md:inline-flex md:flex-row-reverse">
           <span className={`text-6xl ${isPlaying && 'animate-throwing'}`}>{playerServer}</span>
-          <span>score</span>
+          <span>{`server: ${score.server} - ${score.user} :user`}</span>
           <span className={`text-6xl ${isPlaying && 'animate-throwing'}`}>{playerUser}</span>
         </p>
         {/*USER PLAYER*/}
