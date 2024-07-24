@@ -21,17 +21,17 @@ generate random usernames for players (?)
  
 #### Requirements
 - [ ] multiplayer
-- [ ] light-dark mode
-- [ ] mobile first & responsiveness
-- [ ] use semantic html
-- [ ] add accessibility
+- [ ] light-dark-whimsical mode // in progress
+- [ ] mobile first & responsiveness // in progress
+- [ ] accessibility: semantic html, aria-labels // in progress
 - [ ] modes: vs computer, vs friend (share a link)
 - [ ] add score and history
+- [ ] add chat popup
 - [ ] performance
 - [ ] security
 - [ ] usability
 
 ##### Optional/advanced
-- [ ] add leaderboard
+- [ ] add leaderboard (wins in a row)
 - [ ] add optional login to save progress
 - [ ] improve ui > create 3D graphics?
