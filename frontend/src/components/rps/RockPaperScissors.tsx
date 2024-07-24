@@ -31,6 +31,7 @@ function RockPaperScissors() {
   const [state, dispatch] = React.useReducer(reducer, initialState);
   const { playerUser, playerServer, isPlaying, score } = state;
 
+  const isIdleEmoji = (player) => player === '🤜' || player === '🤛';
   const handleOnOptionClick = (e) => {
     // persist result
     const pl = e.currentTarget.name;
@@ -70,9 +71,17 @@ function RockPaperScissors() {
         </div>
         {/*PLAYGROUND*/}
         <p className="text-center gap-4 flex flex-col justify-around items-center md:inline-flex md:flex-row-reverse">
-          <span className={`text-6xl ${isPlaying && 'animate-throwing'}`}>{playerServer}</span>
+          <span
+            className={`text-6xl ${isIdleEmoji(playerServer) && 'rotate-90 md:-rotate-90'} ${isPlaying && 'animate-throwing'}`}
+          >
+            {playerServer}
+          </span>
           <span>{`server: ${score.server} - ${score.user} :user`}</span>
-          <span className={`text-6xl ${isPlaying && 'animate-throwing'}`}>{playerUser}</span>
+          <span
+            className={`text-6xl ${isIdleEmoji(playerUser) && 'rotate-90'} ${isPlaying && 'animate-throwing'}`}
+          >
+            {playerUser}
+          </span>
         </p>
         {/*USER PLAYER*/}
         <div className="flex flex-col gap-6">
