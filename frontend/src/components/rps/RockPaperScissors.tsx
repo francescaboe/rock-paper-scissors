@@ -1,5 +1,13 @@
 import React from 'react';
-import { IDLE_PLAYERS, TEXT, options, RoPaScAction, RoPaScActionTypes, RoPaScState } from './types';
+import {
+  IDLE_PLAYERS,
+  TEXT,
+  options,
+  RoPaScAction,
+  RoPaScActionTypes,
+  RoPaScState,
+  outcomes,
+} from './types';
 
 // Reducer
 const initialState = {
@@ -16,10 +24,26 @@ function reducer(state: RoPaScState, action: RoPaScAction) {
   switch (action.type) {
     case RoPaScActionTypes.START_GAME:
       return { ...state, isPlaying: true };
+    case RoPaScActionTypes.END_GAME:
+      return {
+        ...state,
+        playerUser: IDLE_PLAYERS.playerUser,
+        playerServer: IDLE_PLAYERS.playerServer,
+        isPlaying: false,
+      };
     case RoPaScActionTypes.UPDATE_PLAYER_USER:
       return { ...state, playerUser: action.payload };
     case RoPaScActionTypes.UPDATE_PLAYER_SERVER:
       return { ...state, playerServer: action.payload };
+    case RoPaScActionTypes.UPDATE_SCORE:
+      return {
+        ...state,
+        score: {
+          ...state.score,
+          server: state.score.server + action.payload.server,
+          user: state.score.user + action.payload.user,
+        },
+      };
     case RoPaScActionTypes.RESET_GAME:
       return initialState;
     default:
@@ -32,10 +56,12 @@ function RockPaperScissors() {
   const { playerUser, playerServer, isPlaying, score } = state;
 
   const isIdleEmoji = (player) => player === '🤜' || player === '🤛';
+  const isIdle =
+    playerServer === initialState.playerServer && playerUser === initialState.playerUser;
   const handleOnOptionClick = (e) => {
     // persist result
     const pl = e.currentTarget.name;
-    dispatch({ type: RoPaScActionTypes.RESET_GAME });
+    dispatch({ type: RoPaScActionTypes.END_GAME });
     dispatch({ type: RoPaScActionTypes.START_GAME });
 
     setTimeout(() => {
@@ -50,9 +76,25 @@ function RockPaperScissors() {
     }, 1800);
 
     setTimeout(() => {
-      dispatch({ type: RoPaScActionTypes.RESET_GAME });
+      dispatch({ type: RoPaScActionTypes.END_GAME });
     }, 3000);
   };
+
+  React.useEffect(() => {
+    if (isIdle) {
+      // update score
+      return;
+    }
+    if (playerServer === playerUser) {
+      //setWinner(TEXT.draw);
+      return;
+    }
+    if (playerServer === outcomes[playerUser]) {
+      dispatch({ type: RoPaScActionTypes.UPDATE_SCORE, payload: { server: 0, user: 1 } });
+    } else {
+      dispatch({ type: RoPaScActionTypes.UPDATE_SCORE, payload: { server: 1, user: 0 } });
+    }
+  }, [playerServer, playerUser, outcomes]);
 
   return (
     <main className="p-2 h-lvh bg-amber-50 flex flex-col">
@@ -76,7 +118,7 @@ function RockPaperScissors() {
           >
             {playerServer}
           </span>
-          <span>{`server: ${score.server} - ${score.user} :user`}</span>
+          <span>{`server: ${score['server']} - ${score['user']} :user`}</span>
           <span
             className={`text-6xl ${isIdleEmoji(playerUser) && 'rotate-90'} ${isPlaying && 'animate-throwing'}`}
           >
