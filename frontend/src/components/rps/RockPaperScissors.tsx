@@ -18,6 +18,7 @@ const initialState = {
     user: 0,
     server: 0,
   },
+  result: '...',
 };
 
 function reducer(state: RoPaScState, action: RoPaScAction) {
@@ -30,23 +31,30 @@ function reducer(state: RoPaScState, action: RoPaScAction) {
         playerUser: IDLE_PLAYERS.playerUser,
         playerServer: IDLE_PLAYERS.playerServer,
         isPlaying: false,
+        result: '...',
       };
     case RoPaScActionTypes.UPDATE_GAME: {
       const { playerUser, playerServer } = action.payload;
       const updatedScore = { ...state.score };
+      let result: string;
 
       if (playerServer !== playerUser) {
         if (playerServer === outcomes[playerUser]) {
           updatedScore.user += 1;
+          result = TEXT.user_win;
         } else {
           updatedScore.server += 1;
+          result = TEXT.server_win;
         }
+      } else {
+        result = TEXT.draw;
       }
       return {
         ...state,
         playerServer,
         playerUser,
         score: updatedScore,
+        result,
       };
     }
     case RoPaScActionTypes.RESET_GAME:
@@ -58,9 +66,9 @@ function reducer(state: RoPaScState, action: RoPaScAction) {
 
 function RockPaperScissors() {
   const [state, dispatch] = React.useReducer(reducer, initialState);
-  const { playerUser, playerServer, isPlaying, score } = state;
+  const { playerUser, playerServer, isPlaying, result, score } = state;
 
-  const isIdleEmoji = (player) => player === '🤜' || player === '🤛';
+  const isIdleEmoji = (player: string) => player === '🤜' || player === '🤛';
 
   const handleOnOptionClick = (e) => {
     // persist result
@@ -88,7 +96,6 @@ function RockPaperScissors() {
 
   React.useEffect(() => {
     if (score.server === 0) return;
-    console.log('server score');
     // add explosion animation for server
   }, [score.server]);
   React.useEffect(() => {
@@ -105,6 +112,7 @@ function RockPaperScissors() {
         <div className="flex flex-col gap-6">
           <h2 className="flex flex-col">
             <span>{TEXT.serverPlayer}</span>
+            <span className="text-4xl">{score.server}</span>
           </h2>
           <p>
             <span className="text-6xl">❓</span>
@@ -119,7 +127,7 @@ function RockPaperScissors() {
           >
             {playerServer}
           </span>
-          <span>{` user: ${score.user} - server: ${score.server}`}</span>
+          <span className="text-2xl md:w-20">{result}</span>
           <span
             className={`text-6xl ${isIdleEmoji(playerUser) && 'rotate-90'} ${isPlaying && 'animate-throwing'}`}
           >
@@ -130,6 +138,7 @@ function RockPaperScissors() {
         <div className="flex flex-col gap-6">
           <h2 className="flex flex-col">
             <span>{TEXT.userPlayer}</span>
+            <span className="text-4xl">{score.user}</span>
           </h2>
           <p className="flex justify-center gap-2">
             {options.map((opt) => (

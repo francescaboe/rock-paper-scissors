@@ -5,7 +5,7 @@ export enum IDLE_PLAYERS {
 
 export enum TEXT {
   draw = 'Draw',
-  server_win = 'I win!',
+  server_win = 'Server wins!',
   no_winner = 'No winner yet!',
   user_win = 'You win!',
   play = 'Play',
@@ -42,5 +42,6 @@ export interface RoPaScState {
   playerUser: string;
   playerServer: string;
   isPlaying: boolean;
+  result: string;
   score: { server: number; user: number };
 }
