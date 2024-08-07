@@ -101,6 +101,10 @@ module.exports = {
           '0%, 100%': { transform: 'scale(1) rotate(90deg)' },
           '50%': { transform: 'scale(1.5) rotate(90deg)' }
         },
+        'throwing-md': {
+          '0%, 100%': { transform: 'scale(1) rotate(-90deg)' },
+          '50%': { transform: 'scale(1.5) rotate(-90deg)' }
+        },
         wiggle: {
           '0%, 100%': { transform: 'rotate(-3deg)' },
           '50%': { transform: 'rotate(3deg)' },
@@ -116,6 +120,7 @@ module.exports = {
       },
       animation: {
         throwing: 'throwing 600ms ease-in-out 3',
+        'throwing-md': 'throwing-md 600ms ease-in-out 3',
         wiggle: 'wiggle 1s ease-in-out infinite',
         pop: 'pop 0.5s cubic-bezier(0.26, 0.53, 0.74, 1.48)',
         'bounce-fast': 'bounce 600ms ease-in-out 3',

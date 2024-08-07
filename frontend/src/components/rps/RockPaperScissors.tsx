@@ -123,7 +123,7 @@ function RockPaperScissors() {
         {/*PLAYGROUND*/}
         <p className="text-center gap-4 flex flex-col justify-around items-center md:inline-flex md:flex-row-reverse">
           <span
-            className={`text-6xl ${isIdleEmoji(playerServer) && 'rotate-90 md:-rotate-90'} ${isPlaying && 'animate-throwing'}`}
+            className={`text-6xl ${isIdleEmoji(playerServer) && 'rotate-90 md:-rotate-90'} ${isPlaying && 'animate-throwing md:animate-throwing-md'}`}
           >
             {playerServer}
           </span>
