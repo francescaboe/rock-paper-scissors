@@ -8,7 +8,7 @@ import {
   TEXT,
 } from './types';
 
-export const initialState = {
+export const initialGameState = {
   playerUser: IDLE_PLAYERS.playerUser,
   playerServer: IDLE_PLAYERS.playerServer,
   isPlaying: false,
@@ -19,7 +19,7 @@ export const initialState = {
   },
 };
 
-export function reducer(state: RoPaScState, action: RoPaScAction) {
+export function gameReducer(state: RoPaScState, action: RoPaScAction) {
   switch (action.type) {
     case RoPaScActionTypes.START_GAME:
       return { ...state, isPlaying: true };
@@ -56,7 +56,7 @@ export function reducer(state: RoPaScState, action: RoPaScAction) {
       };
     }
     case RoPaScActionTypes.RESET_GAME:
-      return initialState;
+      return initialGameState;
     default:
       return state;
   }

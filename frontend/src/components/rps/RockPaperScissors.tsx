@@ -1,9 +1,9 @@
 import React from 'react';
 import { options, RoPaScActionTypes, TEXT } from './types';
-import { initialState, reducer } from './reducer';
+import { initialGameState, gameReducer } from './gameReducer';
 
 function RockPaperScissors() {
-  const [state, dispatch] = React.useReducer(reducer, initialState);
+  const [state, dispatch] = React.useReducer(gameReducer, initialGameState);
   const { playerUser, playerServer, isPlaying, result, score } = state;
 
   const isIdleEmoji = (player: string) => player === '🤜' || player === '🤛';
