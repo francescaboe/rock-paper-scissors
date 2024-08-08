@@ -1,6 +1,7 @@
 export enum IDLE_PLAYERS {
   playerUser = '🤛',
   playerServer = '🤜',
+  result = '...',
 }
 
 export enum TEXT {

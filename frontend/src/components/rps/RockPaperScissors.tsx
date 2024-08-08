@@ -1,12 +1,12 @@
 import React from 'react';
 import {
   IDLE_PLAYERS,
-  TEXT,
   options,
+  outcomes,
   RoPaScAction,
   RoPaScActionTypes,
   RoPaScState,
-  outcomes,
+  TEXT,
 } from './types';
 
 // Reducer
@@ -14,11 +14,11 @@ const initialState = {
   playerUser: IDLE_PLAYERS.playerUser,
   playerServer: IDLE_PLAYERS.playerServer,
   isPlaying: false,
+  result: IDLE_PLAYERS.result,
   score: {
     user: 0,
     server: 0,
   },
-  result: '...',
 };
 
 function reducer(state: RoPaScState, action: RoPaScAction) {
@@ -31,7 +31,7 @@ function reducer(state: RoPaScState, action: RoPaScAction) {
         playerUser: IDLE_PLAYERS.playerUser,
         playerServer: IDLE_PLAYERS.playerServer,
         isPlaying: false,
-        result: '...',
+        result: IDLE_PLAYERS.result,
       };
     case RoPaScActionTypes.UPDATE_GAME: {
       const { playerUser, playerServer } = action.payload;
@@ -89,20 +89,11 @@ function RockPaperScissors() {
       // TODO
     }, 1800);
 
+    // 3 seconds later, reset players (but not score)
     setTimeout(() => {
       dispatch({ type: RoPaScActionTypes.END_GAME });
     }, 3000);
   };
-
-  React.useEffect(() => {
-    if (score.server === 0) return;
-    // add explosion animation for server
-  }, [score.server]);
-  React.useEffect(() => {
-    if (score.user === 0) return;
-    console.log('user score');
-    // add explosion animation for user
-  }, [score.user]);
 
   return (
     <main className="p-2 h-lvh bg-amber-50 flex flex-col">
