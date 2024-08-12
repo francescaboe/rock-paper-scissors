@@ -17,6 +17,11 @@ export enum TEXT {
   userPlayer = 'Your name',
 }
 export const options: string[] = ['✊', '🖐️', '✌️'];
+export const optionLabels: { [key: string]: string } = {
+  '✊': 'Rock',
+  '🖐️': 'Paper',
+  '✌️': 'Scissors',
+};
 
 // winner: looser
 export const outcomes: { [key: string]: string | undefined } = {

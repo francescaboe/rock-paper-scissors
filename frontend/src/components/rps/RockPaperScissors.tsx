@@ -1,5 +1,5 @@
 import React from 'react';
-import { options, RoPaScActionTypes, TEXT } from './types';
+import { optionLabels, options, RoPaScActionTypes, TEXT } from './types';
 import { initialGameState, gameReducer } from './gameReducer';
 
 function RockPaperScissors() {
@@ -39,9 +39,12 @@ function RockPaperScissors() {
       <section className="text-center w-full h-full flex flex-col justify-around items-center md:inline-flex md:flex-row-reverse">
         {/*SERVER PLAYER*/}
         <div className="flex flex-col gap-6">
-          <h2 className="flex flex-col">
-            <span>{TEXT.serverPlayer}</span>
-            <span className="text-4xl">{score.server}</span>
+          {/*aria-live="polite" announces the score update without interrupting screen reader*/}
+          <h2 className="flex flex-col" aria-live="polite">
+            <span id="server-score-label">{TEXT.serverPlayer}</span>
+            <span className="text-4xl" aria-labelledby="server-score-label" aria-live="polite">
+              {score.server}
+            </span>
           </h2>
           <p>
             <span className="text-6xl">❓</span>
@@ -53,21 +56,29 @@ function RockPaperScissors() {
         <p className="text-center gap-4 flex flex-col justify-around items-center md:inline-flex md:flex-row-reverse">
           <span
             className={`text-6xl ${isIdleEmoji(playerServer) && 'rotate-90 md:-rotate-90'} ${isPlaying && 'animate-throwing md:animate-throwing-md'}`}
+            aria-label={optionLabels[playerServer]}
+            role="img"
           >
             {playerServer}
           </span>
-          <span className="text-2xl md:w-20">{result}</span>
+          <span className="text-2xl md:w-20" aria-live="polite">
+            {result}
+          </span>
           <span
             className={`text-6xl ${isIdleEmoji(playerUser) && 'rotate-90'} ${isPlaying && 'animate-throwing'}`}
+            aria-label={optionLabels[playerUser]}
+            aria-live="polite"
           >
             {playerUser}
           </span>
         </p>
         {/*USER PLAYER*/}
         <div className="flex flex-col gap-6">
-          <h2 className="flex flex-col">
-            <span>{TEXT.userPlayer}</span>
-            <span className="text-4xl">{score.user}</span>
+          <h2 className="flex flex-col" aria-live="polite">
+            <span id="user-score-label">{TEXT.userPlayer}</span>
+            <span className="text-4xl" aria-labelledby="user-score-label">
+              {score.user}
+            </span>
           </h2>
           <p className="flex justify-center gap-2">
             {options.map((opt) => (
@@ -76,6 +87,7 @@ function RockPaperScissors() {
                 className="text-6xl disabled:opacity-20"
                 key={opt}
                 name={opt}
+                aria-label={optionLabels[opt]}
                 disabled={isPlaying}
               >
                 {opt}
