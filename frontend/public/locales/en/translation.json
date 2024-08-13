@@ -1,0 +1,18 @@
+{
+  "draw": "Draw",
+  "join_game": "Join game",
+  "no_winner": "No winner yet!",
+  "play": "Play",
+  "play_server": "Play Server",
+  "reset": "Reset",
+  "result": "Result",
+  "rock_paper_scissors": "Rock paper scissors",
+  "rock_paper_scissors_lobby": "Rock paper scissors Lobby",
+  "score": "Score: ",
+  "server_win": "Server wins!",
+  "server_player": "Server player name",
+  "start_new_game": "Start new game",
+  "user_win": "You win!",
+  "user_player": "Your name",
+  "what_is_your_name": "What's your name?"
+}
