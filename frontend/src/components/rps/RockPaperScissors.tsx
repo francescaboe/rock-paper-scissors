@@ -1,8 +1,10 @@
 import React from 'react';
-import { optionLabels, options, RoPaScActionTypes, TEXT } from './types';
+import { optionLabels, options, RoPaScActionTypes } from './types';
 import { initialGameState, gameReducer } from './gameReducer';
+import { useTranslation } from 'react-i18next';
 
 function RockPaperScissors() {
+  const { i18n } = useTranslation();
   const [state, dispatch] = React.useReducer(gameReducer, initialGameState);
   const { playerUser, playerServer, isPlaying, result, score } = state;
 
@@ -35,13 +37,13 @@ function RockPaperScissors() {
 
   return (
     <main className="p-2 h-lvh bg-amber-50 flex flex-col">
-      <h1 className="text-center">Play Rock Paper Scissors</h1>
+      <h1 className="text-center">{i18n.t('rock_paper_scissors')}</h1>
       <section className="text-center w-full h-full flex flex-col justify-around items-center md:inline-flex md:flex-row-reverse">
         {/*SERVER PLAYER*/}
         <div className="flex flex-col gap-6">
           {/*aria-live="polite" announces the score update without interrupting screen reader*/}
           <h2 className="flex flex-col" aria-live="polite">
-            <span id="server-score-label">{TEXT.serverPlayer}</span>
+            <span id="server-score-label">{i18n.t('server_player')}</span>
             <span className="text-4xl" aria-labelledby="server-score-label" aria-live="polite">
               {score.server}
             </span>
@@ -75,7 +77,7 @@ function RockPaperScissors() {
         {/*USER PLAYER*/}
         <div className="flex flex-col gap-6">
           <h2 className="flex flex-col" aria-live="polite">
-            <span id="user-score-label">{TEXT.userPlayer}</span>
+            <span id="user-score-label">{i18n.t('user_player')}</span>
             <span className="text-4xl" aria-labelledby="user-score-label">
               {score.user}
             </span>

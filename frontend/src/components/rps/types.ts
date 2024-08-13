@@ -4,18 +4,6 @@ export enum IDLE_PLAYERS {
   result = '...',
 }
 
-export enum TEXT {
-  draw = 'Draw',
-  server_win = 'Server wins!',
-  no_winner = 'No winner yet!',
-  user_win = 'You win!',
-  play = 'Play',
-  reset = 'Reset',
-  result = 'Result',
-  score = 'Score: ',
-  serverPlayer = 'Server player name',
-  userPlayer = 'Your name',
-}
 export const options: string[] = ['✊', '🖐️', '✌️'];
 export const optionLabels: { [key: string]: string } = {
   '✊': 'Rock',

@@ -1,12 +1,6 @@
 // Reducer
-import {
-  IDLE_PLAYERS,
-  outcomes,
-  RoPaScAction,
-  RoPaScActionTypes,
-  RoPaScState,
-  TEXT,
-} from './types';
+import { IDLE_PLAYERS, outcomes, RoPaScAction, RoPaScActionTypes, RoPaScState } from './types';
+import { useTranslation } from 'react-i18next';
 
 export const initialGameState = {
   playerUser: IDLE_PLAYERS.playerUser,
@@ -20,6 +14,7 @@ export const initialGameState = {
 };
 
 export function gameReducer(state: RoPaScState, action: RoPaScAction) {
+  const { i18n } = useTranslation();
   switch (action.type) {
     case RoPaScActionTypes.START_GAME:
       return { ...state, isPlaying: true };
@@ -39,13 +34,13 @@ export function gameReducer(state: RoPaScState, action: RoPaScAction) {
       if (playerServer !== playerUser) {
         if (playerServer === outcomes[playerUser]) {
           updatedScore.user += 1;
-          result = TEXT.user_win;
+          result = i18n.t('user_win');
         } else {
           updatedScore.server += 1;
-          result = TEXT.server_win;
+          result = i18n.t('server_win');
         }
       } else {
-        result = TEXT.draw;
+        result = i18n.t('draw');
       }
       return {
         ...state,
