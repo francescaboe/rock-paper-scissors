@@ -1,6 +1,6 @@
 // Reducer
 import { IDLE_PLAYERS, outcomes, RoPaScAction, RoPaScActionTypes, RoPaScState } from './types';
-import { useTranslation } from 'react-i18next';
+import i18n from 'i18next';
 
 export const initialGameState = {
   playerUser: IDLE_PLAYERS.playerUser,
@@ -14,7 +14,6 @@ export const initialGameState = {
 };
 
 export function gameReducer(state: RoPaScState, action: RoPaScAction) {
-  const { i18n } = useTranslation();
   switch (action.type) {
     case RoPaScActionTypes.START_GAME:
       return { ...state, isPlaying: true };
