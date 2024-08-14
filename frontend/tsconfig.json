@@ -17,6 +17,9 @@
       "api": [
         "./api"
         ],
+      "routes": [
+        "./routes"
+      ]
       //"test-utils": ["./utils/test-utils"]
     },
     // flag fixes default and namespace imports from CommonJS to TS.

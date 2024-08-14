@@ -1,5 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 function Lobby() {
   const { t } = useTranslation();
   return (
@@ -13,7 +14,7 @@ function Lobby() {
           aria-label={t('what_is_your_name')}
         />
         <div className="flex flex-col gap-8 justify-center items-center md:inline-flex md:flex-row">
-          <button>{t('play_server')}</button>
+          <Link to="/play-server">{t('play_server')}</Link>
           <button>{t('start_new_game')}</button>
           <button>{t('join_game')}</button>
         </div>

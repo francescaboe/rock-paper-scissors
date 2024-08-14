@@ -93,6 +93,7 @@ module.exports = {
       types: path.resolve(__dirname, 'src/types'),
       constants: path.resolve(__dirname, 'src/constants'),
       api: path.resolve(__dirname, 'src/api'),
+      routes: path.resolve(__dirname, 'src/routes'),
     },
   },
 };

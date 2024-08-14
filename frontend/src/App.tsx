@@ -1,13 +1,11 @@
 import React from 'react';
-import RockPaperScissors from 'components/RockPaperScissors';
-import Lobby from 'components/Lobby';
+import AppRoutes from 'routes/AppRoutes';
 function App() {
   return (
     <>
       <React.Suspense fallback="loading">
-        <RockPaperScissors />
+        <AppRoutes />
       </React.Suspense>
-      <Lobby />
     </>
   );
 }
