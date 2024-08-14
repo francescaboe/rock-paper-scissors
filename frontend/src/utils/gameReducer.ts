@@ -1,5 +1,6 @@
 // Reducer
-import { IDLE_PLAYERS, outcomes, RoPaScAction, RoPaScActionTypes, RoPaScState } from './types';
+import { RoPaScAction, RoPaScState } from 'types/game.types';
+import { IDLE_PLAYERS, RPS_ACTION_TYPES, outcomes } from 'constants/game.constants';
 import i18n from 'i18next';
 
 export const initialGameState = {
@@ -15,9 +16,9 @@ export const initialGameState = {
 
 export function gameReducer(state: RoPaScState, action: RoPaScAction) {
   switch (action.type) {
-    case RoPaScActionTypes.START_GAME:
+    case RPS_ACTION_TYPES.START_GAME:
       return { ...state, isPlaying: true };
-    case RoPaScActionTypes.END_GAME:
+    case RPS_ACTION_TYPES.END_GAME:
       return {
         ...state,
         playerUser: IDLE_PLAYERS.playerUser,
@@ -25,7 +26,7 @@ export function gameReducer(state: RoPaScState, action: RoPaScAction) {
         isPlaying: false,
         result: IDLE_PLAYERS.result,
       };
-    case RoPaScActionTypes.UPDATE_GAME: {
+    case RPS_ACTION_TYPES.UPDATE_GAME: {
       const { playerUser, playerServer } = action.payload;
       const updatedScore = { ...state.score };
       let result: string;
@@ -49,7 +50,7 @@ export function gameReducer(state: RoPaScState, action: RoPaScAction) {
         result,
       };
     }
-    case RoPaScActionTypes.RESET_GAME:
+    case RPS_ACTION_TYPES.RESET_GAME:
       return initialGameState;
     default:
       return state;

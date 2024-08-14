@@ -7,7 +7,16 @@
       ],
       "utils": [
         "./utils"
-      ]
+      ],
+      "types": [
+        "./types"
+      ],
+      "constants": [
+        "./constants"
+        ],
+      "api": [
+        "./api"
+        ],
       //"test-utils": ["./utils/test-utils"]
     },
     // flag fixes default and namespace imports from CommonJS to TS.

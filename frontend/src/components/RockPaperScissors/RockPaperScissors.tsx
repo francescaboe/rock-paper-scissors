@@ -1,6 +1,6 @@
 import React from 'react';
-import { optionLabels, options, RoPaScActionTypes } from './types';
-import { initialGameState, gameReducer } from './gameReducer';
+import { optionLabels, options, RPS_ACTION_TYPES, TIMERS } from 'constants/game.constants';
+import { initialGameState, gameReducer } from 'utils/gameReducer';
 import { useTranslation } from 'react-i18next';
 
 function RockPaperScissors() {
@@ -13,8 +13,8 @@ function RockPaperScissors() {
   const handleOnOptionClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     // persist result
     const pl = e.currentTarget.name;
-    dispatch({ type: RoPaScActionTypes.END_GAME });
-    dispatch({ type: RoPaScActionTypes.START_GAME });
+    dispatch({ type: RPS_ACTION_TYPES.END_GAME });
+    dispatch({ type: RPS_ACTION_TYPES.START_GAME });
 
     setTimeout(() => {
       // VS COMPUTER
@@ -22,17 +22,17 @@ function RockPaperScissors() {
       const randomIndex = Math.floor(Math.random() * options.length);
       const randomOption = options[randomIndex];
       dispatch({
-        type: RoPaScActionTypes.UPDATE_GAME,
+        type: RPS_ACTION_TYPES.UPDATE_GAME,
         payload: { playerServer: randomOption, playerUser: pl },
       });
       // VS SERVER PLAYER
       // TODO
-    }, 1800);
+    }, TIMERS.EIGHTEEN);
 
     // 3 seconds later, reset players (but not score)
     setTimeout(() => {
-      dispatch({ type: RoPaScActionTypes.END_GAME });
-    }, 3000);
+      dispatch({ type: RPS_ACTION_TYPES.END_GAME });
+    }, TIMERS.THIRTY);
   };
 
   return (

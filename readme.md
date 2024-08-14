@@ -37,3 +37,37 @@ generate random usernames for players (?)
 - [ ] add leaderboard (wins in a row)
 - [ ] add optional login to save progress
 - [ ] improve ui > create 3D graphics?
+
+rock-paper-scissors/
+├── backend/
+│   ├── src/
+│   │   ├── index.js
+│   │   ├── gameRoomManager.js
+│   │   └── ...
+│   ├── package.json
+│   └── ...
+├── frontend/
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── Lobby.tsx
+│   │   │   ├── SinglePlayerMode.tsx
+│   │   │   ├── MultiplayerMode/
+│   │   │   │   ├── GameRoom.tsx
+│   │   │   │   └── GameRoomUtils.ts
+│   │   │   └── RockPaperScissors.tsx
+│   │   ├── types/
+│   │   │   ├── game.types.ts
+│   │   │   └── ...
+│   │   ├── utils/
+│   │   │   ├── gameReducer.ts
+│   │   │   └── ...
+│   │   ├── api/
+│   │   │   ├── gameApi.ts
+│   │   │   └── ...
+│   │   ├── ...
+│   │   └── index.js
+│   ├── package.json
+│   └── ...
+├── README.md
+└── ...
+`
