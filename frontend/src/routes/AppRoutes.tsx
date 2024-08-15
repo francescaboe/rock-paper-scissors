@@ -3,6 +3,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import Lobby from 'components/Lobby';
 import SinglePlayerMode from 'components/SinglePlayerMode';
 import MultiplayerMode from 'components/MultiPlayerMode';
+import NotFound from 'components/404';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
     /*path: '/room/:roomId',*/
     path: '/room',
     element: <MultiplayerMode />,
+  },
+  {
+    path: '*',
+    element: <NotFound />,
   },
 ]);
 

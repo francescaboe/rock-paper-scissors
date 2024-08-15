@@ -1,6 +1,8 @@
 {
   "draw": "Draw",
+  "go_back": "Go back",
   "join_game": "Join game",
+  "not_found": "Error 404. Page not found.",
   "no_winner": "No winner yet!",
   "play": "Play",
   "play_server": "Play Server",

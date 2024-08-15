@@ -75,6 +75,7 @@ module.exports = {
   ],
   // Sets up the development server configuration.
   devServer: {
+    historyApiFallback: true,
     // Specifies the directory where the static files are located.
     static: {
       directory: path.resolve(__dirname, 'public'), // Use path.resolve for absolute paths
