@@ -6,7 +6,7 @@
   "play_server": "Play Server",
   "reset": "Reset",
   "result": "Result",
-  "rock_paper_scissors": "Rock paper scissors",
+  "rock_paper_scissors": "Rock paper scissors mode: {{ mode }}",
   "rock_paper_scissors_lobby": "Rock paper scissors Lobby",
   "score": "Score: ",
   "server_win": "Server wins!",

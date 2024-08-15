@@ -1,14 +1,27 @@
 import React from 'react';
-/*
-* MultiplayerMode/
-│   │   │   │   ├── GameRoom.tsx
-│   │   │   │   └── GameRoomUtils.ts
-*
-* */
+import RockPaperScissors from 'components/RockPaperScissors';
+import { GAME_MODES } from 'constants/game.constants';
+import { gameReducer, initialGameState } from 'utils/gameReducer';
+
 function MultiPlayerMode() {
+  // create room
+  // wait for other user to join game
+  const [state /*dispatch*/] = React.useReducer(gameReducer, initialGameState);
+  const onUserChoice = (e: React.MouseEvent<HTMLButtonElement>) => {
+    console.log(e);
+    // persist result
+    // POST to server
+    // GET from server user choice
+    // when both choices are received, compare them and update state
+  };
   return (
     <div>
-      <h1>MultiPlayerMode</h1>
+      {/* Add both user and server names */}
+      <RockPaperScissors mode={GAME_MODES.multi} onUserChoice={onUserChoice} state={state} />
+      {/*TODO: add chat later*/}
+      {/* <button className="absolute bottom-1 left-2 border-2 p-2" disabled>
+        Chat
+      </button>*/}
     </div>
   );
 }

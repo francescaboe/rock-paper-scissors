@@ -29,3 +29,8 @@ export enum TIMERS {
   EIGHTEEN = 1800,
   THIRTY = 3000,
 }
+
+export enum GAME_MODES {
+  multi = 'multi',
+  single = 'single',
+}

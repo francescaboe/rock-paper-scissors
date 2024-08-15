@@ -15,7 +15,7 @@ function Lobby() {
         />
         <div className="flex flex-col gap-8 justify-center items-center md:inline-flex md:flex-row">
           <Link to="/play-server">{t('play_server')}</Link>
-          <button>{t('start_new_game')}</button>
+          <Link to="/room">{t('start_new_game')}</Link>
           <button>{t('join_game')}</button>
         </div>
       </section>

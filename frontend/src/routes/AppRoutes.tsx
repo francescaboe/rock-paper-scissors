@@ -2,8 +2,7 @@ import React from 'react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import Lobby from 'components/Lobby';
 import SinglePlayerMode from 'components/SinglePlayerMode';
-//import GameRoom from 'components/MultiplayerMode/GameRoom';
-
+import MultiplayerMode from 'components/MultiPlayerMode';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -13,10 +12,11 @@ const router = createBrowserRouter([
     path: '/play-server',
     element: <SinglePlayerMode />,
   },
-  /*  {
-    path: '/room/:roomId',
-    element: <GameRoom />,
-  },*/
+  {
+    /*path: '/room/:roomId',*/
+    path: '/room',
+    element: <MultiplayerMode />,
+  },
 ]);
 
 const AppRoutes = () => <RouterProvider router={router} />;

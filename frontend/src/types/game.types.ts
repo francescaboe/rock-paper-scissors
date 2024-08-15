@@ -1,3 +1,5 @@
+import React from 'react';
+
 type NoPayload = { type: 'START_GAME' | 'RESET_GAME' | 'END_GAME' };
 type UpdateGame = { type: 'UPDATE_GAME'; payload: { playerServer: string; playerUser: string } };
 
@@ -11,4 +13,10 @@ export interface RoPaScState {
   isPlaying: boolean;
   result: string;
   score: { server: number; user: number };
+}
+
+export interface RockPaperScissorsBoardProps {
+  mode: 'multi' | 'single';
+  onUserChoice: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  state: RoPaScState;
 }

@@ -1,43 +1,16 @@
 import React from 'react';
-import { optionLabels, options, RPS_ACTION_TYPES, TIMERS } from 'constants/game.constants';
-import { initialGameState, gameReducer } from 'utils/gameReducer';
+import { optionLabels, options } from 'constants/game.constants';
 import { useTranslation } from 'react-i18next';
+import { RockPaperScissorsBoardProps } from 'types/game.types';
 
-function RockPaperScissors() {
+function RockPaperScissors({ mode, onUserChoice, state }: RockPaperScissorsBoardProps) {
   const { i18n } = useTranslation();
-  const [state, dispatch] = React.useReducer(gameReducer, initialGameState);
   const { playerUser, playerServer, isPlaying, result, score } = state;
-
   const isIdleEmoji = (player: string) => player === '🤜' || player === '🤛';
-
-  const handleOnOptionClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    // persist result
-    const pl = e.currentTarget.name;
-    dispatch({ type: RPS_ACTION_TYPES.END_GAME });
-    dispatch({ type: RPS_ACTION_TYPES.START_GAME });
-
-    setTimeout(() => {
-      // VS COMPUTER
-      // Get the random option using the random index
-      const randomIndex = Math.floor(Math.random() * options.length);
-      const randomOption = options[randomIndex];
-      dispatch({
-        type: RPS_ACTION_TYPES.UPDATE_GAME,
-        payload: { playerServer: randomOption, playerUser: pl },
-      });
-      // VS SERVER PLAYER
-      // TODO
-    }, TIMERS.EIGHTEEN);
-
-    // 3 seconds later, reset players (but not score)
-    setTimeout(() => {
-      dispatch({ type: RPS_ACTION_TYPES.END_GAME });
-    }, TIMERS.THIRTY);
-  };
 
   return (
     <main className="p-2 h-lvh bg-amber-50 flex flex-col">
-      <h1 className="text-center">{i18n.t('rock_paper_scissors')}</h1>
+      <h1 className="text-center">{i18n.t('rock_paper_scissors', { mode })}</h1>
       <section className="text-center w-full h-full flex flex-col justify-around items-center md:inline-flex md:flex-row-reverse">
         {/*SERVER PLAYER*/}
         <div className="flex flex-col gap-6">
@@ -85,7 +58,7 @@ function RockPaperScissors() {
           <p className="flex justify-center gap-2">
             {options.map((opt) => (
               <button
-                onClick={handleOnOptionClick}
+                onClick={onUserChoice}
                 className="text-6xl disabled:opacity-20"
                 key={opt}
                 name={opt}
@@ -98,10 +71,6 @@ function RockPaperScissors() {
           </p>
         </div>
       </section>
-      {/*TODO: add chat later*/}
-      {/* <button className="absolute bottom-1 left-2 border-2 p-2" disabled>
-        Chat
-      </button>*/}
     </main>
   );
 }
