@@ -6,6 +6,7 @@ function Lobby() {
   return (
     <div className="h-lvh flex flex-col">
       <h1 className="text-center">{t('rock_paper_scissors_lobby')}</h1>
+      <span>Test PR</span>
       <section className=" w-full h-full flex flex-col gap-8 justify-center items-center">
         <input
           className="text-center"
