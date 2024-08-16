@@ -22,6 +22,7 @@ module.exports = {
     filename: '[name].[contenthash].js', // Cache-busting with contenthash
     // Cleans the output directory before each build, ensuring no stale files remain.
     clean: true, // Cleans the output directory before each build
+    publicPath: '/', // Specifies the public URL of the output directory when referenced in a browser.
   },
   module: {
     // Determines how different file types should be processed.
