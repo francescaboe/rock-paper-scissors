@@ -17,6 +17,7 @@ function RockPaperScissors({
   return (
     <main className="p-2 h-lvh bg-amber-50 flex flex-col">
       <h1 className="text-center">{i18n.t('rock_paper_scissors', { mode })}</h1>
+      <span>TEST DEV</span>
       <Link className="text-center" to="/">
         {i18n.t('back_to_home')}
       </Link>
