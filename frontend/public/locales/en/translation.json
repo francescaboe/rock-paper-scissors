@@ -16,5 +16,6 @@
   "start_new_game": "Start new game",
   "user_win": "You win!",
   "user_player": "Your name",
+  "username_empty": "Username cannot be empty",
   "what_is_your_name": "What's your name?"
 }
