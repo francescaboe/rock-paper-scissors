@@ -1,4 +1,5 @@
 {
+  "back_to_home": "Back to lobby",
   "draw": "Draw",
   "go_back": "Go back",
   "join_game": "Join game",
@@ -7,6 +8,7 @@
   "play": "Play",
   "play_server": "Play Server",
   "reset": "Reset",
+  "reset_game": "Reset game",
   "result": "Result",
   "rock_paper_scissors": "Rock paper scissors mode: {{ mode }}",
   "rock_paper_scissors_lobby": "Rock paper scissors Lobby",

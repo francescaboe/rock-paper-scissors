@@ -20,4 +20,6 @@ export interface RockPaperScissorsBoardProps {
   onUserChoice: (e: React.MouseEvent<HTMLButtonElement>) => void;
   onResetGame: () => void;
   state: RoPaScState;
+  userPlayerName: string;
+  serverPlayerName: string;
 }

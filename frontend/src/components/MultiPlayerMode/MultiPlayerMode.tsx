@@ -27,6 +27,8 @@ function MultiPlayerMode() {
         onUserChoice={onUserChoice}
         onResetGame={handleOnResetGame}
         state={state}
+        userPlayerName="Placeholder User"
+        serverPlayerName="Placeholder Server"
       />
       {/*TODO: add chat later*/}
       {/* <button className="absolute bottom-1 left-2 border-2 p-2" disabled>

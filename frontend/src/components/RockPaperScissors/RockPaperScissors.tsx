@@ -9,6 +9,8 @@ function RockPaperScissors({
   onUserChoice,
   onResetGame,
   state,
+  userPlayerName,
+  serverPlayerName,
 }: RockPaperScissorsBoardProps) {
   const { i18n } = useTranslation();
   const { playerUser, playerServer, isPlaying, result, score } = state;
@@ -25,7 +27,7 @@ function RockPaperScissors({
         <div className="flex flex-col gap-6">
           {/*aria-live="polite" announces the score update without interrupting screen reader*/}
           <h2 className="flex flex-col" aria-live="polite">
-            <span id="server-score-label">{i18n.t('server_player')}</span>
+            <span id="server-score-label">{serverPlayerName}</span>
             <span className="text-4xl" aria-labelledby="server-score-label" aria-live="polite">
               {score.server}
             </span>
@@ -59,7 +61,7 @@ function RockPaperScissors({
         {/*USER PLAYER*/}
         <div className="flex flex-col gap-6">
           <h2 className="flex flex-col" aria-live="polite">
-            <span id="user-score-label">{i18n.t('user_player')}</span>
+            <span id="user-score-label">{userPlayerName}</span>
             <span className="text-4xl" aria-labelledby="user-score-label">
               {score.user}
             </span>

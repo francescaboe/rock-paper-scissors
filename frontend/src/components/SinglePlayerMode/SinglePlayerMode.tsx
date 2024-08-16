@@ -1,10 +1,18 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import RockPaperScissorsBoard from 'components/RockPaperScissors';
-import { GAME_MODES, options, RPS_ACTION_TYPES, TIMERS } from 'constants/game.constants';
+import {
+  DEFAULT_PLAYER_NAME,
+  GAME_MODES,
+  options,
+  RPS_ACTION_TYPES,
+  TIMERS,
+} from 'constants/game.constants';
 import { gameReducer, initialGameState } from 'utils/gameReducer';
 
 function SinglePlayerMode() {
   const [state, dispatch] = React.useReducer(gameReducer, initialGameState);
+  const location = useLocation();
 
   const handleOnOptionClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     // persist result
@@ -39,6 +47,8 @@ function SinglePlayerMode() {
         onUserChoice={handleOnOptionClick}
         onResetGame={handleOnResetGame}
         state={state}
+        userPlayerName={location.state?.userPlayerName || DEFAULT_PLAYER_NAME.USER}
+        serverPlayerName={DEFAULT_PLAYER_NAME.SERVER}
       />
     </div>
   );
