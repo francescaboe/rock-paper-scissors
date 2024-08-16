@@ -5,6 +5,7 @@ import { gameReducer, initialGameState } from 'utils/gameReducer';
 
 function SinglePlayerMode() {
   const [state, dispatch] = React.useReducer(gameReducer, initialGameState);
+
   const handleOnOptionClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     // persist result
     const pl = e.currentTarget.name;
@@ -26,11 +27,17 @@ function SinglePlayerMode() {
       dispatch({ type: RPS_ACTION_TYPES.END_GAME });
     }, TIMERS.THIRTY);
   };
+
+  const handleOnResetGame = () => {
+    dispatch({ type: RPS_ACTION_TYPES.RESET_GAME });
+  };
+
   return (
     <div>
       <RockPaperScissorsBoard
         mode={GAME_MODES.single}
         onUserChoice={handleOnOptionClick}
+        onResetGame={handleOnResetGame}
         state={state}
       />
     </div>

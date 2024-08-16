@@ -18,5 +18,6 @@ export interface RoPaScState {
 export interface RockPaperScissorsBoardProps {
   mode: 'multi' | 'single';
   onUserChoice: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  onResetGame: () => void;
   state: RoPaScState;
 }

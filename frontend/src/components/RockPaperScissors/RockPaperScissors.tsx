@@ -1,9 +1,15 @@
 import React from 'react';
-import { optionLabels, options } from 'constants/game.constants';
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { optionLabels, options } from 'constants/game.constants';
 import { RockPaperScissorsBoardProps } from 'types/game.types';
 
-function RockPaperScissors({ mode, onUserChoice, state }: RockPaperScissorsBoardProps) {
+function RockPaperScissors({
+  mode,
+  onUserChoice,
+  onResetGame,
+  state,
+}: RockPaperScissorsBoardProps) {
   const { i18n } = useTranslation();
   const { playerUser, playerServer, isPlaying, result, score } = state;
   const isIdleEmoji = (player: string) => player === '🤜' || player === '🤛';
@@ -11,6 +17,9 @@ function RockPaperScissors({ mode, onUserChoice, state }: RockPaperScissorsBoard
   return (
     <main className="p-2 h-lvh bg-amber-50 flex flex-col">
       <h1 className="text-center">{i18n.t('rock_paper_scissors', { mode })}</h1>
+      <Link className="text-center" to="/">
+        {i18n.t('back_to_home')}
+      </Link>
       <section className="text-center w-full h-full flex flex-col justify-around items-center md:inline-flex md:flex-row-reverse">
         {/*SERVER PLAYER*/}
         <div className="flex flex-col gap-6">
@@ -71,6 +80,7 @@ function RockPaperScissors({ mode, onUserChoice, state }: RockPaperScissorsBoard
           </p>
         </div>
       </section>
+      <button onClick={onResetGame}>{i18n.t('reset_game')}</button>
     </main>
   );
 }
