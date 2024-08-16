@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 import RockPaperScissorsBoard from 'components/RockPaperScissors';
 import {
   DEFAULT_PLAYER_NAME,
@@ -39,6 +39,11 @@ function SinglePlayerMode() {
   const handleOnResetGame = () => {
     dispatch({ type: RPS_ACTION_TYPES.RESET_GAME });
   };
+
+  // if user tries to navigate to this page from the url skipping the userPlayerName required param, redirect to home page
+  if (!location.state?.userPlayerName) {
+    return <Navigate to="/" replace />;
+  }
 
   return (
     <div>
