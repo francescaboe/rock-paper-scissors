@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { optionLabels, options } from 'constants/game.constants';
+import { EMOJIS, IDLE_PLAYERS, options } from 'constants/game.constants';
 import { RockPaperScissorsBoardProps } from 'types/game.types';
 
 function RockPaperScissors({
@@ -14,7 +14,8 @@ function RockPaperScissors({
 }: RockPaperScissorsBoardProps) {
   const { i18n } = useTranslation();
   const { playerUser, playerServer, isPlaying, result, score } = state;
-  const isIdleEmoji = (player: string) => player === '🤜' || player === '🤛';
+  const isIdleEmoji = (player: string) =>
+    player === IDLE_PLAYERS.playerUser || player === IDLE_PLAYERS.playerServer;
 
   return (
     <main className="p-2 h-lvh bg-amber-50 flex flex-col">
@@ -33,29 +34,29 @@ function RockPaperScissors({
             </span>
           </h2>
           <p>
-            <span className="text-6xl">❓</span>
-            <span className="text-6xl">❓</span>
-            <span className="text-6xl">❓</span>
+            <span className="text-6xl">{EMOJIS['?']}</span>
+            <span className="text-6xl">{EMOJIS['?']}</span>
+            <span className="text-6xl">{EMOJIS['?']}</span>
           </p>
         </div>
         {/*PLAYGROUND*/}
         <p className="text-center gap-4 flex flex-col justify-around items-center md:inline-flex md:flex-row-reverse">
           <span
             className={`text-6xl ${isIdleEmoji(playerServer) && 'rotate-90 md:-rotate-90'} ${isPlaying && 'animate-throwing md:animate-throwing-md'}`}
-            aria-label={optionLabels[playerServer]}
+            aria-label={playerServer}
             role="img"
           >
-            {playerServer}
+            {EMOJIS[playerServer]}
           </span>
           <span className="text-2xl md:w-20" aria-live="polite">
             {result}
           </span>
           <span
             className={`text-6xl ${isIdleEmoji(playerUser) && 'rotate-90'} ${isPlaying && 'animate-throwing'}`}
-            aria-label={optionLabels[playerUser]}
+            aria-label={playerUser}
             aria-live="polite"
           >
-            {playerUser}
+            {EMOJIS[playerUser]}
           </span>
         </p>
         {/*USER PLAYER*/}
@@ -73,10 +74,10 @@ function RockPaperScissors({
                 className="text-6xl disabled:opacity-20"
                 key={opt}
                 name={opt}
-                aria-label={optionLabels[opt]}
+                aria-label={opt}
                 disabled={isPlaying}
               >
-                {opt}
+                {EMOJIS[opt]}
               </button>
             ))}
           </p>

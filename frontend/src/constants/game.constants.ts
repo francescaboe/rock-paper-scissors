@@ -1,21 +1,25 @@
 export enum IDLE_PLAYERS {
-  playerUser = '🤛',
-  playerServer = '🤜',
+  playerUser = 'fist_left',
+  playerServer = 'fist_right',
   result = '...',
 }
 
-export const options: string[] = ['✊', '🖐️', '✌️'];
-export const optionLabels: { [key: string]: string } = {
-  '✊': 'Rock',
-  '🖐️': 'Paper',
-  '✌️': 'Scissors',
-};
+export enum EMOJIS {
+  rock = '✊',
+  paper = '✋',
+  scissors = '✌️',
+  fist_left = '🤛',
+  fist_right = '🤜',
+  '?' = '❓',
+}
+
+export const options: string[] = ['rock', 'paper', 'scissors'];
 
 // winner: looser
 export const outcomes: { [key: string]: string | undefined } = {
-  '✊': '✌️',
-  '🖐️': '✊',
-  '✌️': '🖐️',
+  rock: 'scissors',
+  paper: 'rock',
+  scissors: 'paper',
 };
 
 export enum RPS_ACTION_TYPES {
