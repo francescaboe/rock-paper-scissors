@@ -1,29 +1,30 @@
 import { gameReducer, initialGameState } from './gameReducer';
 import { RPS_ACTION_TYPES } from 'constants/game.constants';
+import { RoPaScAction } from 'types/game.types';
 
 jest.mock('i18next', () => ({
   t: jest.fn((key) => key),
 }));
 
 describe('gameReducer', () => {
-  /*  it('should handle START_GAME action', () => {
-    const action = { type: RPS_ACTION_TYPES.START_GAME };
+  it('should handle START_GAME action', () => {
+    const action: RoPaScAction = { type: RPS_ACTION_TYPES.START_GAME };
     const newState = gameReducer(initialGameState, action);
     expect(newState.isPlaying).toBe(true);
-  });*/
+  });
 
-  /*  it('should handle END_GAME action', () => {
+  it('should handle END_GAME action', () => {
     const initialState = { ...initialGameState, isPlaying: true };
-    const action = { type: RPS_ACTION_TYPES.END_GAME };
+    const action: RoPaScAction = { type: RPS_ACTION_TYPES.END_GAME };
     const newState = gameReducer(initialState, action);
     expect(newState.isPlaying).toBe(false);
     expect(newState.playerUser).toBe(initialGameState.playerUser);
     expect(newState.playerServer).toBe(initialGameState.playerServer);
     expect(newState.result).toBe(initialGameState.result);
-  });*/
+  });
 
   it('should handle UPDATE_GAME action when user wins', () => {
-    const action = {
+    const action: RoPaScAction = {
       type: RPS_ACTION_TYPES.UPDATE_GAME,
       payload: { playerUser: 'rock', playerServer: 'scissors' },
     };
@@ -36,7 +37,7 @@ describe('gameReducer', () => {
   });
 
   it('should handle UPDATE_GAME action when server wins', () => {
-    const action = {
+    const action: RoPaScAction = {
       type: RPS_ACTION_TYPES.UPDATE_GAME,
       payload: { playerUser: 'scissors', playerServer: 'rock' },
     };
@@ -49,7 +50,7 @@ describe('gameReducer', () => {
   });
 
   it("should handle UPDATE_GAME action when it's a draw", () => {
-    const action = {
+    const action: RoPaScAction = {
       type: RPS_ACTION_TYPES.UPDATE_GAME,
       payload: { playerUser: 'paper', playerServer: 'paper' },
     };
@@ -61,20 +62,22 @@ describe('gameReducer', () => {
     expect(newState.result).toBe('draw');
   });
 
-  /* it('should handle RESET_GAME action', () => {
+  it('should handle RESET_GAME action', () => {
     const initialState = {
       ...initialGameState,
       isPlaying: true,
       score: { user: 5, server: 3 },
     };
-    const action = { type: RPS_ACTION_TYPES.RESET_GAME };
+    const action: RoPaScAction = { type: RPS_ACTION_TYPES.RESET_GAME };
     const newState = gameReducer(initialState, action);
     expect(newState).toEqual(initialGameState);
-  });*/
+  });
 
-  /*  it('should return the current state for unknown action types', () => {
-    const action = { type: 'UNKNOWN_ACTION' };
+  it('should return the current state for unknown action types', () => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+    const action: RoPaScAction = { type: 'UNKNOWN_ACTION' };
     const newState = gameReducer(initialGameState, action);
     expect(newState).toEqual(initialGameState);
-  });*/
+  });
 });
