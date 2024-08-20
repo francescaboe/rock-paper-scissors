@@ -1,11 +1,11 @@
 import React from 'react';
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { RouterProvider, createHashRouter } from 'react-router-dom';
 import Lobby from 'components/Lobby';
 import SinglePlayerMode from 'components/SinglePlayerMode';
 import MultiplayerMode from 'components/MultiPlayerMode';
 import NotFound from 'components/404';
 import ErrorBoundary from 'components/ErrorBoundary';
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: '/',
     element: <Lobby />,
