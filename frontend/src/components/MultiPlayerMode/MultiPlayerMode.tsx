@@ -19,6 +19,11 @@ function MultiPlayerMode() {
     dispatch({ type: RPS_ACTION_TYPES.RESET_GAME });
   };
 
+  // if user tries to navigate to this page from the url skipping the userPlayerName required param, redirect to home page
+  /*  if (!location.state?.userPlayerName) {
+    return <Navigate to="/" replace />;
+  }*/
+
   return (
     <div>
       {/* Add both user and server names */}
@@ -27,6 +32,8 @@ function MultiPlayerMode() {
         onUserChoice={onUserChoice}
         onResetGame={handleOnResetGame}
         state={state}
+        userPlayerName="Placeholder User"
+        serverPlayerName="Placeholder Server"
       />
       {/*TODO: add chat later*/}
       {/* <button className="absolute bottom-1 left-2 border-2 p-2" disabled>

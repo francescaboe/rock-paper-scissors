@@ -34,3 +34,8 @@ export enum GAME_MODES {
   multi = 'multi',
   single = 'single',
 }
+
+export enum DEFAULT_PLAYER_NAME {
+  USER = 'You',
+  SERVER = 'Server',
+}

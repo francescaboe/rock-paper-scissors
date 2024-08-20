@@ -1,22 +1,31 @@
 import React from 'react';
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { RouterProvider, createHashRouter } from 'react-router-dom';
 import Lobby from 'components/Lobby';
 import SinglePlayerMode from 'components/SinglePlayerMode';
 import MultiplayerMode from 'components/MultiPlayerMode';
 import NotFound from 'components/404';
-const router = createBrowserRouter([
+import ErrorBoundary from 'components/ErrorBoundary';
+const router = createHashRouter([
   {
     path: '/',
     element: <Lobby />,
   },
   {
     path: '/play-server',
-    element: <SinglePlayerMode />,
+    element: (
+      <ErrorBoundary>
+        <SinglePlayerMode />
+      </ErrorBoundary>
+    ),
   },
   {
     /*path: '/room/:roomId',*/
     path: '/room',
-    element: <MultiplayerMode />,
+    element: (
+      <ErrorBoundary>
+        <MultiplayerMode />
+      </ErrorBoundary>
+    ),
   },
   {
     path: '*',
