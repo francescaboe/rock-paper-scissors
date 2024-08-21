@@ -39,6 +39,7 @@ generate random usernames for players (?)
 - [ ] improve ui > create 3D graphics?
 - [ ] add advanced game strategy for single mode (e.g. randomness, minimax, etc. https://chatgpt.com/share/1fc96d0d-d54c-42e4-b04d-bc4d720d4090)
 
+```
 rock-paper-scissors/
 ├── backend/
 │   ├── src/
@@ -71,4 +72,5 @@ rock-paper-scissors/
 │   └── ...
 ├── README.md
 └── ...
-`
+```
+
