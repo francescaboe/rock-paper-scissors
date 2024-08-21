@@ -9,5 +9,6 @@ module.exports = {
     '^constants/(.*)$': '<rootDir>/src/constants/$1',
     '^api/(.*)$': '<rootDir>/src/api/$1',
     '^routes/(.*)$': '<rootDir>/src/routes/$1',
+    '^test-utils$': '<rootDir>/src/test-utils/test-utils.tsx',
   },
 };

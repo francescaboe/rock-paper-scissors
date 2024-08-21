@@ -96,6 +96,7 @@ module.exports = {
       constants: path.resolve(__dirname, 'src/constants'),
       api: path.resolve(__dirname, 'src/api'),
       routes: path.resolve(__dirname, 'src/routes'),
+      'test-utils': path.resolve(__dirname, 'src/test-utils/test-utils.tsx'),
     },
   },
 };

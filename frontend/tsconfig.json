@@ -19,8 +19,10 @@
         ],
       "routes": [
         "./routes"
+      ],
+      "test-utils": [
+        "./test-utils/test-utils.tsx"
       ]
-      //"test-utils": ["./utils/test-utils"]
     },
     // flag fixes default and namespace imports from CommonJS to TS.
     "esModuleInterop": true,
