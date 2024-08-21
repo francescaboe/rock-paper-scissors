@@ -4,9 +4,9 @@ import { render, RenderOptions } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
+import { I18nextProvider } from 'react-i18next';
 
 // Initialize i18next for internationalization
-// TODO replace with provider?
 i18n.use(initReactI18next).init({
   lng: 'en',
   fallbackLng: 'en',
@@ -19,8 +19,9 @@ i18n.use(initReactI18next).init({
   },
 });
 
-// Mock react-i18next to provide translation functionality in tests
-jest.mock('react-i18next', () => ({
+// you cna either Mock react-i18next to provide translation functionality in tests
+// see https://react.i18next.com/misc/testing for more info
+/*jest.mock('react-i18next', () => ({
   useTranslation: () => {
     return {
       t: jest.fn((key) => key),
@@ -33,11 +34,16 @@ jest.mock('react-i18next', () => ({
     type: '3rdParty',
     init: () => {},
   },
-}));
+}));*/
+// or use I18nextProvider instead
 
 // Wrapper component to provide BrowserRouter and other providers later on
 const AllTheProviders = ({ children }: { children: React.ReactNode }) => {
-  return <BrowserRouter>{children}</BrowserRouter>;
+  return (
+    <BrowserRouter>
+      <I18nextProvider i18n={i18n}>{children}</I18nextProvider>
+    </BrowserRouter>
+  );
 };
 
 // Custom render function that wraps the UI with AllTheProviders
