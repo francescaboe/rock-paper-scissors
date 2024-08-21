@@ -38,7 +38,7 @@ function Lobby() {
           />
           <div aria-live="polite" className="h-6">
             {error && (
-              <p className="text-red-900 text-center text-sm" role="alert">
+              <p className="text-red-900 text-center text-sm" role="alert" aria-label={error}>
                 {error}
               </p>
             )}
