@@ -27,16 +27,17 @@ generate random usernames for players (?)
 - [ ] modes: vs computer, vs friend (share a link)
 - [x] add score
 
+
 - [ ] performance
 - [ ] security
 - [ ] usability
 
 ##### Optional/advanced
+- [ ] improve ui > create 3D graphics?
 - [ ] add chat popup
 - [ ] add game history
 - [ ] add leaderboard (wins in a row)
 - [ ] add optional login to save progress
-- [ ] improve ui > create 3D graphics?
 - [ ] add advanced game strategy for single mode (e.g. randomness, minimax, etc. https://chatgpt.com/share/1fc96d0d-d54c-42e4-b04d-bc4d720d4090)
 
 ```
@@ -51,12 +52,10 @@ rock-paper-scissors/
 ├── frontend/
 │   ├── src/
 │   │   ├── components/
-│   │   │   ├── Lobby.tsx
-│   │   │   ├── SinglePlayerMode.tsx
-│   │   │   ├── MultiplayerMode/
-│   │   │   │   ├── GameRoom.tsx
-│   │   │   │   └── GameRoomUtils.ts
-│   │   │   └── RockPaperScissors.tsx
+│   │   │   ├── Lobby
+│   │   │   ├── SinglePlayerMode
+│   │   │   ├── MultiplayerMode
+│   │   │   └── RockPaperScissors
 │   │   ├── types/
 │   │   │   ├── game.types.ts
 │   │   │   └── ...
@@ -73,4 +72,5 @@ rock-paper-scissors/
 ├── README.md
 └── ...
 ```
-
+## Daily tasks
+- [ ] add tests for routes
