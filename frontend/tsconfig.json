@@ -46,7 +46,9 @@
     // TODO might need to change to Target ES version
     // see https://dev.to/alekseiberezkin/setting-up-react-typescript-app-without-create-react-app-oph#:~:text=14.1.%20Target%20ES%20version
     "target": "esnext", // es2018 for average user / catches older versions
-    "types": ["jest", "@testing-library/jest-dom"]
+    "types": ["jest", "@testing-library/jest-dom"],
+    // resolves json files
+    "resolveJsonModule": true
   },
   // this option excludes libs from typechecking and transpiling; however your code is still checked against typedefs provided by libs.
   "exclude": [

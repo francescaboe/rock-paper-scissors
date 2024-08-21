@@ -5,8 +5,9 @@ import { BrowserRouter } from 'react-router-dom';
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import { I18nextProvider } from 'react-i18next';
+import enTranslations from '../../public/locales/en/translation.json';
 
-// Initialize i18next for internationalization
+// Initialize i18next for internationalization to pass to i18n provider
 i18n.use(initReactI18next).init({
   lng: 'en',
   fallbackLng: 'en',
@@ -14,28 +15,10 @@ i18n.use(initReactI18next).init({
   defaultNS: 'translations',
   resources: {
     en: {
-      translations: {},
+      translations: enTranslations,
     },
   },
 });
-
-// you cna either Mock react-i18next to provide translation functionality in tests
-// see https://react.i18next.com/misc/testing for more info
-/*jest.mock('react-i18next', () => ({
-  useTranslation: () => {
-    return {
-      t: jest.fn((key) => key),
-      i18n: {
-        changeLanguage: jest.fn(),
-      },
-    };
-  },
-  initReactI18next: {
-    type: '3rdParty',
-    init: () => {},
-  },
-}));*/
-// or use I18nextProvider instead
 
 // Wrapper component to provide BrowserRouter and other providers later on
 const AllTheProviders = ({ children }: { children: React.ReactNode }) => {
