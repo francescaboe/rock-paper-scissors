@@ -34,6 +34,7 @@ const customRender = (ui: ReactElement, options?: Omit<RenderOptions, 'wrapper'>
   render(ui, { wrapper: AllTheProviders, ...options });
 
 // Export all from @testing-library/react and the custom render function
+export * from '@testing-library/user-event'; // supercharged fireEvent
 export * from '@testing-library/react';
 export { customRender as render };
 
