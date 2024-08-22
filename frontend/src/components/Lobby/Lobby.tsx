@@ -1,10 +1,12 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Lobby() {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const [userPlayerName, setUserPlayerName] = React.useState('');
+  const [roomId, setRoomId] = React.useState('');
   const [error, setError] = React.useState('');
 
   const handleUserNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -21,6 +23,27 @@ function Lobby() {
       setError('');
     }
   };
+
+  const handleOnCreateRoom = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    // create room api
+    // redirect to play room
+    if (!userPlayerName.trim()) {
+      e.preventDefault();
+      setError(t('username_empty'));
+    } else {
+      // generate room id via api //.then(roomId => { setRoomId(roomId); }) then redirect;
+      setRoomId('1234');
+      e.preventDefault();
+      // navigate to play room
+      // navigate(`/room`, { state: { userPlayerName, roomId } })
+    }
+  };
+
+  React.useEffect(() => {
+    if (roomId) {
+      navigate(`/room`, { state: { userPlayerName, roomId } });
+    }
+  }, [roomId]);
 
   return (
     <div className="h-lvh flex flex-col">
@@ -55,14 +78,14 @@ function Lobby() {
           </Link>
           <Link
             to="/room"
-            state={{ userPlayerName }}
-            onClick={handleLinkClick}
+            state={{ userPlayerName, roomId }}
+            onClick={handleOnCreateRoom}
             aria-label={t('start_new_game')}
           >
             {t('start_new_game')}
           </Link>
           <Link
-            to="/play-server"
+            to="/room"
             state={{ userPlayerName }}
             onClick={handleLinkClick}
             aria-label={t('join_game')}
