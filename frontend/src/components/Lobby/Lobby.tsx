@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
+import { createRoomApi } from 'api/gameApi';
 
 function Lobby() {
   const { t } = useTranslation();
@@ -25,17 +26,19 @@ function Lobby() {
   };
 
   const handleOnCreateRoom = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    // create room api
-    // redirect to play room
     if (!userPlayerName.trim()) {
       e.preventDefault();
       setError(t('username_empty'));
     } else {
-      // generate room id via api //.then(roomId => { setRoomId(roomId); }) then redirect;
-      setRoomId('1234');
+      // generate room id via api then go to room;
+      createRoomApi({ username: userPlayerName })
+        .then((resp) => {
+          setRoomId(resp.roomId);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
       e.preventDefault();
-      // navigate to play room
-      // navigate(`/room`, { state: { userPlayerName, roomId } })
     }
   };
 
