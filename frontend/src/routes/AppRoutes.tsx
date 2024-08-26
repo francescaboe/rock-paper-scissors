@@ -1,5 +1,6 @@
 import React from 'react';
 import { RouterProvider, createHashRouter } from 'react-router-dom';
+import UserNameProtectedRoute from 'components/UserNameProtectedRoute';
 import Lobby from 'components/Lobby';
 import SinglePlayerMode from 'components/SinglePlayerMode';
 import MultiplayerMode from 'components/MultiPlayerMode';
@@ -14,7 +15,9 @@ const router = createHashRouter([
     path: '/play-server',
     element: (
       <ErrorBoundary>
-        <SinglePlayerMode />
+        <UserNameProtectedRoute>
+          <SinglePlayerMode />
+        </UserNameProtectedRoute>
       </ErrorBoundary>
     ),
   },
@@ -23,7 +26,9 @@ const router = createHashRouter([
     path: '/room',
     element: (
       <ErrorBoundary>
-        <MultiplayerMode />
+        <UserNameProtectedRoute>
+          <MultiplayerMode />
+        </UserNameProtectedRoute>
       </ErrorBoundary>
     ),
   },
