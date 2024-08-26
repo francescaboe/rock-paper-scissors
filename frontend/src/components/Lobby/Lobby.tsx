@@ -1,14 +1,20 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
-import { createRoomApi } from 'api/gameApi';
+import useGameRoom from 'utils/useGameRoom';
 
 function Lobby() {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const { onCreateRoom, roomId } = useGameRoom();
   const [userPlayerName, setUserPlayerName] = React.useState('');
-  const [roomId, setRoomId] = React.useState('');
   const [error, setError] = React.useState('');
+
+  React.useEffect(() => {
+    if (roomId) {
+      navigate(`/room`, { state: { userPlayerName, roomId } });
+    }
+  }, [roomId, navigate, userPlayerName]);
 
   const handleUserNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setError('');
@@ -26,27 +32,18 @@ function Lobby() {
   };
 
   const handleOnCreateRoom = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
     if (!userPlayerName.trim()) {
-      e.preventDefault();
       setError(t('username_empty'));
     } else {
-      // generate room id via api then go to room;
-      createRoomApi({ username: userPlayerName })
-        .then((resp) => {
-          setRoomId(resp.roomId);
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-      e.preventDefault();
+      try {
+        onCreateRoom(userPlayerName);
+      } catch (error) {
+        console.log(error);
+        setError(t('room_creation_error'));
+      }
     }
   };
-
-  React.useEffect(() => {
-    if (roomId) {
-      navigate(`/room`, { state: { userPlayerName, roomId } });
-    }
-  }, [roomId]);
 
   return (
     <div className="h-lvh flex flex-col">

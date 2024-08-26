@@ -40,11 +40,6 @@ function SinglePlayerMode() {
     dispatch({ type: RPS_ACTION_TYPES.RESET_GAME });
   };
 
-  // if user tries to navigate to this page from the url skipping the userPlayerName required param, redirect to home page
-  if (!location.state?.userPlayerName) {
-    return <Navigate to="/" replace />;
-  }
-
   return (
     <div>
       <RockPaperScissorsBoard

@@ -1,24 +1,23 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link, Navigate, useLocation } from 'react-router-dom';
-import { io } from 'socket.io-client';
+import { Link, useLocation } from 'react-router-dom';
 import RockPaperScissors from 'components/RockPaperScissors';
-import { joinRoomApi } from 'api/gameApi';
 import { gameReducer, initialGameState } from 'utils/gameReducer';
+import useGameRoom from 'utils/useGameRoom';
 import { copyToClipboard } from 'utils/utilityFunctions';
 import { DEFAULT_PLAYER_NAME, GAME_MODES, RPS_ACTION_TYPES } from 'constants/game.constants';
 
 function MultiPlayerMode() {
   const { t } = useTranslation();
   const location = useLocation();
-  // if user tries to navigate to this page from the url skipping the userPlayerName required param, redirect to home page
-  if (!location.state?.userPlayerName) {
-    return <Navigate to="/" replace />;
-  }
-  const [state, dispatch] = React.useReducer(gameReducer, initialGameState);
-  const [inputRoomId, setInputRoomId] = React.useState('');
-  const [roomId, setRoomId] = React.useState('');
-  const [opponent, setOpponent] = React.useState('');
+  const { onJoinRoom, roomId, setRoomId, inputRoomId, setInputRoomId, opponent } = useGameRoom();
+  const [gameState, dispatch] = React.useReducer(gameReducer, initialGameState);
+
+  React.useEffect(() => {
+    if (location.state?.roomId) {
+      setRoomId(location.state?.roomId);
+    }
+  }, [location.state?.roomId, setRoomId]);
 
   const handleOnCopyClick = () => {
     copyToClipboard(roomId);
@@ -28,51 +27,18 @@ function MultiPlayerMode() {
     dispatch({ type: RPS_ACTION_TYPES.RESET_GAME });
   };
 
-  const onJoinRoom = () => {
-    joinRoomApi({ username: location.state?.userPlayerName, roomId: inputRoomId }).then((resp) => {
-      setOpponent(resp.players[0]);
-      setRoomId(resp.roomId);
-    });
+  const handleOnJoinRoom = () => {
+    try {
+      onJoinRoom(location.state?.userPlayerName, inputRoomId);
+    } catch (error) {
+      console.error('Error joining room:', error);
+    }
   };
 
   const onUserChoice = (e: React.MouseEvent<HTMLButtonElement>) => {
     console.log(e);
     // send user choice to server
   };
-
-  React.useEffect(() => {
-    if (location.state?.roomId) {
-      setRoomId(location.state?.roomId);
-    }
-  }, [location.state?.roomId]);
-
-  React.useEffect(() => {
-    const newSocket = io('http://localhost:4000', {
-      transports: ['websocket'], // Ensure it uses WebSocket and not long-polling
-    });
-
-    newSocket.on('connect', () => {
-      console.log('Socket connected:', newSocket.id); // This should log the socket id if connected
-    });
-
-    // listens for the opponentJoined event
-    newSocket.on('opponentJoined', (data: { roomId: string; username: string }) => {
-      setOpponent(data.username);
-    });
-
-    // listens for the opponentChose event
-    /*    newSocket.on('opponentChose', (data: { roomId: string; username: string }) => {
-      setOpponent(data.username);
-    });*/
-
-    newSocket.on('disconnect', (reason) => {
-      console.log('Socket disconnected:', reason);
-    });
-
-    return () => {
-      newSocket.disconnect();
-    };
-  }, []);
 
   return (
     <main>
@@ -83,7 +49,7 @@ function MultiPlayerMode() {
               mode={GAME_MODES.multi}
               onUserChoice={onUserChoice}
               onResetGame={handleOnResetGame}
-              state={state}
+              state={gameState}
               userPlayerName={location.state?.userPlayerName || DEFAULT_PLAYER_NAME.USER}
               serverPlayerName={opponent}
             />
@@ -109,7 +75,7 @@ function MultiPlayerMode() {
             value={inputRoomId}
             onChange={(e) => setInputRoomId(e.target.value)}
           />
-          <button onClick={onJoinRoom}>Join Room</button>
+          <button onClick={handleOnJoinRoom}>Join Room</button>
           <Link className="text-center" to="/">
             {t('back_to_home')}
           </Link>
