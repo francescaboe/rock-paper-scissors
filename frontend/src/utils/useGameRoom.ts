@@ -1,6 +1,7 @@
 import React from 'react';
 import { io, Socket } from 'socket.io-client';
 import { createRoomApi, joinRoomApi } from 'api/gameApi';
+import { useLocation } from 'react-router-dom';
 
 function useGameRoom() {
   const [roomId, setRoomId] = React.useState('');
@@ -8,6 +9,8 @@ function useGameRoom() {
   const [startUser, setStartUser] = React.useState('');
   const [opponent, setOpponent] = React.useState('');
   const [socket, setSocket] = React.useState<Socket | null>(null);
+
+  const location = useLocation();
 
   React.useEffect(() => {
     const newSocket = io('http://localhost:4000', {
@@ -34,11 +37,11 @@ function useGameRoom() {
     };
   }, []);
 
-  /*  React.useEffect(() => {
+  React.useEffect(() => {
     if (location.state?.roomId) {
       setRoomId(location.state?.roomId);
     }
-  }, [location.state?.roomId, setRoomId]);*/
+  }, [location.state?.roomId, setRoomId]);
 
   const onCreateRoom = (creatingUser: string) => {
     createRoomApi({ username: creatingUser })
@@ -64,9 +67,17 @@ function useGameRoom() {
       });
   };
 
+  const handleOnJoinRoom = () => {
+    try {
+      onJoinRoom(location.state?.userPlayerName, inputRoomId);
+    } catch (error) {
+      console.error('Error joining room:', error);
+    }
+  };
+
   return {
     onCreateRoom,
-    onJoinRoom,
+    handleOnJoinRoom,
     roomId,
     setRoomId,
     inputRoomId,

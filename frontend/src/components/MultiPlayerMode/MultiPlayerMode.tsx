@@ -10,14 +10,8 @@ import { DEFAULT_PLAYER_NAME, GAME_MODES, RPS_ACTION_TYPES } from 'constants/gam
 function MultiPlayerMode() {
   const { t } = useTranslation();
   const location = useLocation();
-  const { onJoinRoom, roomId, setRoomId, inputRoomId, setInputRoomId, opponent } = useGameRoom();
+  const { handleOnJoinRoom, roomId, inputRoomId, setInputRoomId, opponent } = useGameRoom();
   const [gameState, dispatch] = React.useReducer(gameReducer, initialGameState);
-
-  React.useEffect(() => {
-    if (location.state?.roomId) {
-      setRoomId(location.state?.roomId);
-    }
-  }, [location.state?.roomId, setRoomId]);
 
   const handleOnCopyClick = () => {
     copyToClipboard(roomId);
@@ -25,14 +19,6 @@ function MultiPlayerMode() {
 
   const handleOnResetGame = () => {
     dispatch({ type: RPS_ACTION_TYPES.RESET_GAME });
-  };
-
-  const handleOnJoinRoom = () => {
-    try {
-      onJoinRoom(location.state?.userPlayerName, inputRoomId);
-    } catch (error) {
-      console.error('Error joining room:', error);
-    }
   };
 
   const onUserChoice = (e: React.MouseEvent<HTMLButtonElement>) => {
