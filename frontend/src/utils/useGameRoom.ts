@@ -4,14 +4,14 @@ import { createRoomApi, joinRoomApi } from 'api/gameApi';
 import { useLocation } from 'react-router-dom';
 
 function useGameRoom() {
+  const location = useLocation();
   const [roomId, setRoomId] = React.useState('');
   const [inputRoomId, setInputRoomId] = React.useState('');
-  const [startUser, setStartUser] = React.useState('');
+  const [clientUser, setClientUser] = React.useState(location.state?.userPlayerName);
   const [opponent, setOpponent] = React.useState('');
   const [socket, setSocket] = React.useState<Socket | null>(null);
 
-  const location = useLocation();
-
+  // Socket listening to opponent actions
   React.useEffect(() => {
     const newSocket = io('http://localhost:4000', {
       transports: ['websocket'], // Ensure it uses WebSocket and not long-polling
@@ -37,17 +37,19 @@ function useGameRoom() {
     };
   }, []);
 
+  // set roomId - from lobby
   React.useEffect(() => {
     if (location.state?.roomId) {
       setRoomId(location.state?.roomId);
     }
   }, [location.state?.roomId, setRoomId]);
 
+  // on start game click - in lobby
   const onCreateRoom = (creatingUser: string) => {
     createRoomApi({ username: creatingUser })
       .then((resp) => {
         setRoomId(resp.roomId);
-        setStartUser(creatingUser);
+        setClientUser(creatingUser);
         socket?.emit('joinRoom', { roomId: resp.roomId, username: creatingUser });
       })
       .catch((e) => {
@@ -55,34 +57,27 @@ function useGameRoom() {
       });
   };
 
-  const onJoinRoom = (joiningUser: string, joinRoomId: string) => {
-    joinRoomApi({ username: joiningUser, roomId: joinRoomId })
+  // on join game click - in room
+  const onJoinRoom = () => {
+    joinRoomApi({ username: clientUser, roomId: inputRoomId })
       .then((resp) => {
         setRoomId(resp.roomId);
-        setOpponent(joiningUser);
-        socket?.emit('joinRoom', { roomId: resp.roomId, username: joiningUser });
+        setOpponent(resp.players[0]);
+        socket?.emit('joinRoom', { roomId: resp.roomId, username: clientUser });
       })
       .catch((e) => {
         console.log(e);
       });
   };
 
-  const handleOnJoinRoom = () => {
-    try {
-      onJoinRoom(location.state?.userPlayerName, inputRoomId);
-    } catch (error) {
-      console.error('Error joining room:', error);
-    }
-  };
-
   return {
     onCreateRoom,
-    handleOnJoinRoom,
+    onJoinRoom,
     roomId,
     setRoomId,
     inputRoomId,
     setInputRoomId,
-    startUser,
+    clientUser,
     opponent,
   };
 }

@@ -1,21 +1,16 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import RockPaperScissors from 'components/RockPaperScissors';
 import { gameReducer, initialGameState } from 'utils/gameReducer';
 import useGameRoom from 'utils/useGameRoom';
-import { copyToClipboard } from 'utils/utilityFunctions';
+import { onCopyToClipboard } from 'utils/utilityFunctions';
 import { DEFAULT_PLAYER_NAME, GAME_MODES, RPS_ACTION_TYPES } from 'constants/game.constants';
 
 function MultiPlayerMode() {
   const { t } = useTranslation();
-  const location = useLocation();
-  const { handleOnJoinRoom, roomId, inputRoomId, setInputRoomId, opponent } = useGameRoom();
+  const { onJoinRoom, roomId, inputRoomId, setInputRoomId, clientUser, opponent } = useGameRoom();
   const [gameState, dispatch] = React.useReducer(gameReducer, initialGameState);
-
-  const handleOnCopyClick = () => {
-    copyToClipboard(roomId);
-  };
 
   const handleOnResetGame = () => {
     dispatch({ type: RPS_ACTION_TYPES.RESET_GAME });
@@ -36,14 +31,16 @@ function MultiPlayerMode() {
               onUserChoice={onUserChoice}
               onResetGame={handleOnResetGame}
               state={gameState}
-              userPlayerName={location.state?.userPlayerName || DEFAULT_PLAYER_NAME.USER}
+              userPlayerName={clientUser || DEFAULT_PLAYER_NAME.USER}
               serverPlayerName={opponent}
             />
           ) : (
             <div>
               <p className="text-center">
                 Room ID: {roomId}
-                <button onClick={handleOnCopyClick}>{t('copy')}</button>
+                <button value={roomId} onClick={onCopyToClipboard}>
+                  {t('copy')}
+                </button>
               </p>
               <p className="text-center">Waiting for opponent...</p>
             </div>
@@ -61,7 +58,7 @@ function MultiPlayerMode() {
             value={inputRoomId}
             onChange={(e) => setInputRoomId(e.target.value)}
           />
-          <button onClick={handleOnJoinRoom}>Join Room</button>
+          <button onClick={onJoinRoom}>Join Room</button>
           <Link className="text-center" to="/">
             {t('back_to_home')}
           </Link>
