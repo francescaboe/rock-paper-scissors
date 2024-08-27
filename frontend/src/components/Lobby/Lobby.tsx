@@ -31,17 +31,14 @@ function Lobby() {
     }
   };
 
-  const handleOnCreateRoom = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleOnCreateRoom = async (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     if (!userPlayerName.trim()) {
       setError(t('username_empty'));
     } else {
-      try {
-        onCreateRoom(userPlayerName);
-      } catch (error) {
-        console.log(error);
-        setError(t('room_creation_error'));
-      }
+      // add loading
+      await onCreateRoom(userPlayerName);
+      // add try/catch and error message
     }
   };
 

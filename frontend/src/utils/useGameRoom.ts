@@ -7,7 +7,7 @@ function useGameRoom() {
   const location = useLocation();
   const [roomId, setRoomId] = React.useState('');
   const [inputRoomId, setInputRoomId] = React.useState('');
-  const [clientUser, setClientUser] = React.useState(location.state?.userPlayerName);
+  const [clientUser, setClientUser] = React.useState(location.state?.userPlayerName || '');
   const [opponent, setOpponent] = React.useState('');
   const [socket, setSocket] = React.useState<Socket | null>(null);
 
@@ -45,16 +45,10 @@ function useGameRoom() {
   }, [location.state?.roomId, setRoomId]);
 
   // on start game click - in lobby
-  const onCreateRoom = (creatingUser: string) => {
-    createRoomApi({ username: creatingUser })
-      .then((resp) => {
-        setRoomId(resp.roomId);
-        setClientUser(creatingUser);
-        socket?.emit('joinRoom', { roomId: resp.roomId, username: creatingUser });
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+  const onCreateRoom = async (username: string) => {
+    const data = await createRoomApi({ username });
+    setRoomId(data.roomId);
+    setClientUser(username);
   };
 
   // on join game click - in room
