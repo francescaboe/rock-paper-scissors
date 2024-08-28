@@ -63,7 +63,7 @@ app.post('/join-game', (req, res) => {
     // send room to opponent
     res.json(room);
   } else {
-    res.status(404).json({ message: 'Room not found or full' });
+    res.status(404).json({ message: 'room_not_found_full' });
   }
 });
 
