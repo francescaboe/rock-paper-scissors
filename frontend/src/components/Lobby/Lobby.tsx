@@ -6,7 +6,7 @@ import useGameRoom from 'utils/useGameRoom';
 function Lobby() {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { onCreateRoom, roomId } = useGameRoom();
+  const { onCreateRoom, roomId, LoadingComponent, ErrorComponent } = useGameRoom();
   const [userPlayerName, setUserPlayerName] = React.useState('');
   const [error, setError] = React.useState('');
 
@@ -36,9 +36,7 @@ function Lobby() {
     if (!userPlayerName.trim()) {
       setError(t('username_empty'));
     } else {
-      // add loading
       await onCreateRoom(userPlayerName);
-      // add try/catch and error message
     }
   };
 
@@ -91,6 +89,8 @@ function Lobby() {
           </Link>
         </div>
       </section>
+      {LoadingComponent}
+      {ErrorComponent}
     </div>
   );
 }

@@ -10,7 +10,16 @@ import { DEFAULT_PLAYER_NAME, GAME_MODES, RPS_ACTION_TYPES } from 'constants/gam
 function MultiPlayerMode() {
   const { t } = useTranslation();
   const [gameState, dispatch] = React.useReducer(gameReducer, initialGameState);
-  const { onJoinRoom, roomId, inputRoomId, setInputRoomId, clientUser, opponent } = useGameRoom();
+  const {
+    onJoinRoom,
+    roomId,
+    inputRoomId,
+    setInputRoomId,
+    clientUser,
+    opponent,
+    LoadingComponent,
+    ErrorComponent,
+  } = useGameRoom();
 
   const handleOnResetGame = () => {
     dispatch({ type: RPS_ACTION_TYPES.RESET_GAME });
@@ -64,6 +73,8 @@ function MultiPlayerMode() {
           </Link>
         </div>
       )}
+      {LoadingComponent}
+      {ErrorComponent}
     </main>
   );
 }

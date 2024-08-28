@@ -37,22 +37,11 @@ apiClient.interceptors.response.use(
 );
 
 export const createRoomApi = async ({ username }: { username: string }) => {
-  try {
-    const response = await apiClient.post('/start-game', { username });
-    return response.data;
-  } catch (error) {
-    console.error('Error creating room:', error);
-    // Re-throw the error for the component to handle
-    throw error;
-  }
+  const response = await apiClient.post('/start-game', { username });
+  return response.data;
 };
 
 export const joinRoomApi = async ({ username, roomId }: { username: string; roomId: string }) => {
-  try {
-    const response = await apiClient.post('/join-game', { username, roomId });
-    return response.data;
-  } catch (error) {
-    console.error('Error joining room:', error);
-    throw error;
-  }
+  const response = await apiClient.post('/join-game', { username, roomId });
+  return response.data;
 };

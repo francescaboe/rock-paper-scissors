@@ -33,7 +33,7 @@ import Error from 'components/Error';
  */
 function useApiCall() {
   const [isLoading, setIsLoading] = React.useState(false);
-  const [error, setError] = React.useState<Error | null>(null);
+  const [error, setError] = React.useState<string | null>(null);
 
   const callApi = React.useCallback(async <T,>(apiFunction: () => Promise<T>) => {
     setIsLoading(true);
@@ -42,7 +42,7 @@ function useApiCall() {
       const result = await apiFunction();
       return result;
     } catch (err) {
-      setError(err);
+      setError(err?.response?.data?.message || err.message);
     } finally {
       setIsLoading(false);
     }
@@ -53,7 +53,7 @@ function useApiCall() {
     error,
     callApi,
     LoadingComponent: isLoading ? <Loading /> : null,
-    ErrorComponent: error ? <Error message={error.message} /> : null,
+    ErrorComponent: error ? <Error message={error} /> : null,
   };
 }
 

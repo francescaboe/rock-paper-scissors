@@ -13,6 +13,7 @@
   "result": "Result",
   "rock_paper_scissors": "Rock paper scissors mode: {{ mode }}",
   "rock_paper_scissors_lobby": "Rock paper scissors Lobby",
+  "room_not_found_full": " Room not found or full.",
   "score": "Score: ",
   "server_win": "Server wins!",
   "server_player": "Server player name",
