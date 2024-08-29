@@ -21,5 +21,6 @@
   "user_win": "You win!",
   "user_player": "Your name",
   "username_empty": "Why so private?",
+  "waiting_for_opponent": "Waiting for opponent to join...",
   "what_is_your_name": "What's your name?"
 }

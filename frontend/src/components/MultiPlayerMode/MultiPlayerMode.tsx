@@ -51,7 +51,7 @@ function MultiPlayerMode() {
                   {t('copy')}
                 </button>
               </p>
-              <p className="text-center">Waiting for opponent...</p>
+              <p className="text-center">{t('waiting_for_opponent')}</p>
             </div>
           )}
           <Link className="text-center" to="/">
